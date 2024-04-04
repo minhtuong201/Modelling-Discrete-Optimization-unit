@@ -1,0 +1,429 @@
+{
+    "assignmentKey": "cLOp89l5H0",
+    "history": {
+        "files": {
+            "models/animal.mzn": {
+                "changes": [
+                    {
+                        "edits": [
+                            {
+                                "line": 37,
+                                "text": "constraint forall([x[i] = x[i + 1] <-> x[i] = base | i in 1..n-1]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 38,
+                                "text": "constraint forall([x[i] = base -> x[i+1] = base | i in 1..n-1]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711101624.737
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 37,
+                                "text": "constraint forall([x[i] = base -> x[i+1] = base | i in 1..n-1]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 38,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 39,
+                                "text": "constraint forall(i in 1..n-1)(x[i] = base -> x[i+1] = base);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711101651.749
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 37,
+                                "text": "constraint forall(i in 1..n-1)(x[i] = base -> x[i+1] = base);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 38,
+                                "text": "constraint forall([x[i] = x[i + 1] <-> x[i] = base | i in 1..n-1]);",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 38,
+                                "text": "",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711101662.454
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 26,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where x[i] < x[j] /\\ x[j] != base /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 27,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where x[i] < x[j] /\\ x[i] != base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711102505.873
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 26,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where x[i] < x[j] /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 27,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where i < j /\\ x[i] != base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711102516.066
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 27,
+                                "text": "constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 28,
+                                "text": "% constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711102602.968
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 26,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where i < j /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 27,
+                                "text": "% constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 28,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where i < j /\\ x[j] != base /\\ x[i] != base]);",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 28,
+                                "text": "constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711102620.416
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 27,
+                                "text": "constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 28,
+                                "text": "% constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711102627.025
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 27,
+                                "text": "% constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 28,
+                                "text": "constraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711103037.599
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 26,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where i < j /\\ x[j] != base /\\ x[i] != base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 27,
+                                "text": "constraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where x[i] < x[j] /\\ x[j] != base /\\ x[i] != base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711103566.818
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 40,
+                                "text": "constraint forall(i in PLACE)(d[x[i], x[s[i]]] <= link /\\ i > s[i]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 41,
+                                "text": "constraint forall([s[i] = 0 | i in PLACE where x[i] = base]);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "constraint forall(i in 1..n)(",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "  (d[x[i], base] <= link) \\/",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "  exists(j in 1..i where j < i)(d[x[i], x[j]] <= link)",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": ");",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "constraint forall(i in PLACE)(s[i]<i);",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "constraint forall(i in PLACE)(",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "  if x[i] = base then s[i] = 0 else true endif",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": ");",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "% Make base in the rightmost",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "constraint forall(i in 1..n-1)(x[i] = base -> x[i+1] = base);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711103727.533
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 40,
+                                "text": "constraint forall(i in 1..n)(",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 41,
+                                "text": "  (d[x[i], base] <= link) \\/",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 42,
+                                "text": "  exists(j in 1..i where j < i)(d[x[i], x[j]] <= link)",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 43,
+                                "text": ");",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 44,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 45,
+                                "text": "constraint forall(i in PLACE)(s[i]<i);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 46,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 47,
+                                "text": "constraint forall(i in PLACE)(",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 48,
+                                "text": "  if x[i] = base then s[i] = 0 else true endif",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 49,
+                                "text": ");",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 50,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 51,
+                                "text": "% Make base in the rightmost",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 52,
+                                "text": "constraint forall(i in 1..n-1)(x[i] = base -> x[i+1] = base);",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 53,
+                                "text": "constraint forall(i in PLACE)(d[x[i], x[s[i]]] <= link /\\ i > s[i]);",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 53,
+                                "text": "constraint forall([s[i] = 0 | i in PLACE where x[i] = base]);",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1711103921.444
+                    }
+                ],
+                "snapshot": "enum LOC; % set of locations\nLOC: base; % base location where information is collected\nconstraint assert(base = min(LOC),\"base is not the first mentioned location\\n\");\nint: n; % number of traps available\narray[LOC] of int: wild; % amount of interesting wildlife at each location\narray[LOC] of int: cost; % cost to setup trap at location, -ve means unavailable\nconstraint assert(cost[base] = 0, \"Cost of base location is not 0\\n\");\narray[LOC,LOC] of int: d; % distance from one location to another (symmetric)\nconstraint forall(l1, l2 in LOC where l1 <= l2)(assert(d[l1,l2] = d[l2,l1], \"distance is not symmetric at \\(l1) \\(l2)\\n\"));\nconstraint forall(l in LOC)(assert(d[l,l] = 0, \"self distance for \\(l) is not zero\\n\"));\nint: move; % movement distance of animals\nint: link; % wireless link maximum communication distance;\nint: mind; % mininum distance between two traps\nint: opcost; % cost to maintain/operate camera trap\nint: budget; % total budget for traps\n\nset of int: PLACE0 = 0..n;\nset of int: PLACE = 1..n;\narray[PLACE0] of var LOC: x; % location where camera trap is placed (except 0)\narray[PLACE] of var PLACE0: s; % location to send info (part C only)\nvar int: total_wild;\n\n%%--------PART A---------%%\narray[LOC] of var int: loco; % location covered\nconstraint x[0] = base;\nconstraint forall([d[x[i],x[j]] >= mind | i,j in PLACE where x[i] < x[j] /\\ x[j] != base /\\ x[i] != base]);\nconstraint forall([x[i] != x[j] | i,j in PLACE where i != j /\\ x[i] != base]);\nconstraint forall([cost[x[i]] != -1 | i in PLACE]);\nconstraint forall(l in LOC) (\n    loco[l] = sum([d[l, x[i]] <= move | i in PLACE where x[i] != base])\n);\nconstraint total_wild = sum([wild[l] | l in LOC where loco[l] > 0]);\nsolve maximize total_wild;\n\n%%--------PART B---------%%\nconstraint budget >= sum([cost[x[i]] | i in PLACE]) + sum([x[i] != base | i in PLACE]) * opcost;\nconstraint forall([x[i] = x[i + 1] <-> x[i] = base | i in 1..n-1]);\n\n% %%--------PART C---------%%\nconstraint forall(i in PLACE)(d[x[i], x[s[i]]] <= link /\\ i > s[i]);\nconstraint forall([s[i] = 0 | i in PLACE where x[i] = base]);\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n% output(\"\\(s)\")"
+            }
+        },
+        "parent": "1cbfaeff-7ffe-4dd9-9201-5d7c27f4b290",
+        "uuid": "e21176ce-aa1f-4495-9a3b-155df8cfc555"
+    },
+    "modelAssignments": [
+        {
+            "id": "X85WR2k7a8",
+            "model": "models/animal.mzn",
+            "name": "Animal Model 1"
+        }
+    ],
+    "moocName": "FIT5216 S1 2024",
+    "moocPasswordString": "Submission token",
+    "name": "Assignment 1 Wildlife Monitor",
+    "sendMeta": true,
+    "solutionAssignments": [
+        {
+            "data": "data/animal01.dzn",
+            "id": "A6Vdej10tJ",
+            "model": "models/animal.mzn",
+            "name": "Animal 1",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal02.dzn",
+            "id": "WtNRqcoeBL",
+            "model": "models/animal.mzn",
+            "name": "Animal 2",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal03.dzn",
+            "id": "Jl0JqlQPSB",
+            "model": "models/animal.mzn",
+            "name": "Animal 3",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal04.dzn",
+            "id": "htwj1zkCSx",
+            "model": "models/animal.mzn",
+            "name": "Animal 4",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal05.dzn",
+            "id": "BfiQkPXG1Z",
+            "model": "models/animal.mzn",
+            "name": "Animal 5",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal06.dzn",
+            "id": "OxjUR85rar",
+            "model": "models/animal.mzn",
+            "name": "Animal 6",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal07.dzn",
+            "id": "jr0CGLSpoI",
+            "model": "models/animal.mzn",
+            "name": "Animal 7",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal08.dzn",
+            "id": "RRR5fkG1cD",
+            "model": "models/animal.mzn",
+            "name": "Animal 8",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal09.dzn",
+            "id": "TrUkP9KBHP",
+            "model": "models/animal.mzn",
+            "name": "Animal 9",
+            "timeout": "60"
+        },
+        {
+            "data": "data/animal10.dzn",
+            "id": "LaavKJsKI5",
+            "model": "models/animal.mzn",
+            "name": "Animal 10",
+            "timeout": "60"
+        }
+    ],
+    "submissionTerms": "This is an individual assignment. Your submission has to be entirely your own work. We will use similarity detection software to detect any attempt at collusion, and the penalties are quite harsh. If in doubt, contact your teaching team with any questions! You may not use large language models such as ChatGPT for any part of this assignment\r\n",
+    "submissionURL": "https://autograder.optimisation-2020.cloud.edu.au/api/index.php"
+}
