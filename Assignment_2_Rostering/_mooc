@@ -1008,9 +1008,114 @@
                             }
                         ],
                         "timestamp": 1712268081.189
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 92,
+                                "text": "% -- Stage B",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "% Max and Min work shifts constraint",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "constraint forall(nurse in NURSE) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "\t\t\t\t\t\t\t\tforall(i in 1..nday-6) (sum(j in i..i+6)(sh[nurse, j] != OFF) <= maxweek ) /\\",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "\t\t\t\t\t\t\t\tforall(i in 1..nday-13) (sum(j in i..i+13)(sh[nurse, j] = NIGH) <= maxnightfort ) /\\",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "\t\t\t\t\t\t\t\tforall(i in 1..nday-13) (sum(j in i..i+13)(sh[nurse, j] != OFF) >= minfort )  ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": ");",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "array[DAYS, SHIFT] of var 0..infinity: cnt; % Counting number of nurse per explicit shift and day",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "constraint forall(d in DAYS) (global_cardinality(sh[..,d], SHIFT, cnt[d,..]));",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "constraint forall(d in DAYS) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "\t\t\t\t\t\t\t\tforall(shift in SHIFT) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\tcnt[d, shift] >= minshift[shift, d]",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "\t\t\t\t\t\t\t\t)",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "\t\t\t\t\t\t\t",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": ");",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "constraint forall(nurse in NURSE, d in DAYS) (wd[nurse, d] = dummy);",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 92,
+                                "text": "",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1712268127.882
                     }
                 ],
-                "snapshot": "% nurse rostering project\n% STAGE A data\nenum NURSE; % set of nurses to roster\nenum SHIFT = { MORN, DAY, EVEN, NIGH, OFF };\nint: nday;     % number of days for roster\nset of int: DAYS = 1..nday; \narray[NURSE,DAYS] of bool: rostered_off; % nurse is guaranteed an off shift\n% STAGE B data\nint: maxweek; % maximum working shifts in any 7 day period\nint: maxnightfort; % maximum night shifts in any 14 day period\nint: minfort; % minimum number of working shifts in any 14 day period\narray[SHIFT,DAYS] of int: minshift; % minimum number of nurses rostered on each shift\n% STAGE C data\narray[NURSE] of int: shift_cost;  \n% STAGE D data\nenum WARD;  % set of wards to roster\nWARD: dummy; % dummy ward\narray[WARD,DAYS] of int: minward; % minimum number of nurses rostered to each ward\nconstraint forall(d in DAYS)(assert(minward[dummy,d] = 0, \"Dummy ward has non zero minimum on day \\(d)\\n\"));\nint: maxward; % maximum number of wards any nurse can work in the roster period\n% STAGE E data\nenum SKILL;\nSKILL: senior;                         % which skill is senior\narray[NURSE] of set of SKILL: skill;   % skills that each nurse has\narray[WARD] of set of SKILL: required; % particular skills for each ward\nopt WARD: emergency; % emergency ward if its being rostered\nenum SLICE = { PREDAWN, AM, PM, LATE };\n% coverage MORNING = {PREDAWN, AM}, \n%          DAY = {AM,PM} \n%          EVENING = {PM, LATE}, \n%          NIGHT {LATE, PREDAWN of the next day} \n\n%%%% DECISIONS\narray[NURSE,DAYS] of var SHIFT: sh; % shift for each nurse on each day\nvar 0..nday*sum(shift_cost): total_cost;\narray[NURSE,DAYS] of var WARD: wd; % ward rostered for each nurse\n\n% --- Stage A\n% A1\ninclude \"globals.mzn\";\nconstraint forall(nurse in NURSE, i in DAYS) (\n\t\t\t\t\t\t\t\t rostered_off[nurse, i] = true -> sh[nurse, i] = OFF\n);\n\t\t\t\t\t\t\t\t\n% A2\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-3) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse,i] = sh[nurse, i+1] \t/\\ sh[nurse, i] = NIGH /\\ sh[nurse,i] = sh[nurse, i+2]) -> \tsh[nurse, i+3] != NIGH\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-1) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = NIGH -> sh[nurse, i+1] in {EVEN, NIGH, OFF})\n% \t\t\t\t\t\t\t\t\t /\\ (sh[nurse, i] = EVEN -> sh[nurse, i+1] != MORN)\n% \t\t\t\t\t\t\t\t)\t\n% );\n\t\t\t\t\t\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-2) (\n% \t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = OFF /\\ sh[nurse, i+1] = OFF) ->  sh[nurse, i+2] != OFF\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 2..nday-1) \n% \t\t\t\t\t\t\t\t((sh[nurse, i] = DAY /\\ sh[nurse, i-1] != DAY) -> sh[nurse, i + 1] = DAY) /\\\n% \t\t\t\t\t\t\t\t(sh[nurse, 1] = DAY -> sh[nurse, 2] = DAY)\n% );\n\n% Using regular constraint:\narray[NURSE, DAYS] of var SHIFT: tshift; % transition shift\nconstraint forall(nurse in NURSE) (\n\t\t\t\t\t\t\t\tregular([sh[nurse, i] | i in DAYS], 10, 5, transition, 1, 2..10)\n\n);\narray[1..10, SHIFT] of 0..10: transition = \n% Action (headings) = MORN, DAY, EVEN, NIGH, OFF\n% State (columns) = START, MORN, DAY1, DAY2, EVEN, NIGH1, NIGH2, NIGH3, OFF1, OFF2\n[|2,3,5,6,9\n|2,3,5,6,9\n|0,4,0,0,0\n|2,4,5,6,9\n|0,3,5,6,9\n|0,0,5,7,9\n|0,0,5,8,9\n|0,0,5,0,9\n|2,3,5,6,10\n|2,3,5,6,0\n|];\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                "snapshot": "% nurse rostering project\n% STAGE A data\nenum NURSE; % set of nurses to roster\nenum SHIFT = { MORN, DAY, EVEN, NIGH, OFF };\nint: nday;     % number of days for roster\nset of int: DAYS = 1..nday; \narray[NURSE,DAYS] of bool: rostered_off; % nurse is guaranteed an off shift\n% STAGE B data\nint: maxweek; % maximum working shifts in any 7 day period\nint: maxnightfort; % maximum night shifts in any 14 day period\nint: minfort; % minimum number of working shifts in any 14 day period\narray[SHIFT,DAYS] of int: minshift; % minimum number of nurses rostered on each shift\n% STAGE C data\narray[NURSE] of int: shift_cost;  \n% STAGE D data\nenum WARD;  % set of wards to roster\nWARD: dummy; % dummy ward\narray[WARD,DAYS] of int: minward; % minimum number of nurses rostered to each ward\nconstraint forall(d in DAYS)(assert(minward[dummy,d] = 0, \"Dummy ward has non zero minimum on day \\(d)\\n\"));\nint: maxward; % maximum number of wards any nurse can work in the roster period\n% STAGE E data\nenum SKILL;\nSKILL: senior;                         % which skill is senior\narray[NURSE] of set of SKILL: skill;   % skills that each nurse has\narray[WARD] of set of SKILL: required; % particular skills for each ward\nopt WARD: emergency; % emergency ward if its being rostered\nenum SLICE = { PREDAWN, AM, PM, LATE };\n% coverage MORNING = {PREDAWN, AM}, \n%          DAY = {AM,PM} \n%          EVENING = {PM, LATE}, \n%          NIGHT {LATE, PREDAWN of the next day} \n\n%%%% DECISIONS\narray[NURSE,DAYS] of var SHIFT: sh; % shift for each nurse on each day\nvar 0..nday*sum(shift_cost): total_cost;\narray[NURSE,DAYS] of var WARD: wd; % ward rostered for each nurse\n\n% --- Stage A\n% A1\ninclude \"globals.mzn\";\nconstraint forall(nurse in NURSE, i in DAYS) (\n\t\t\t\t\t\t\t\t rostered_off[nurse, i] = true -> sh[nurse, i] = OFF\n);\n\t\t\t\t\t\t\t\t\n% A2\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-3) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse,i] = sh[nurse, i+1] \t/\\ sh[nurse, i] = NIGH /\\ sh[nurse,i] = sh[nurse, i+2]) -> \tsh[nurse, i+3] != NIGH\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-1) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = NIGH -> sh[nurse, i+1] in {EVEN, NIGH, OFF})\n% \t\t\t\t\t\t\t\t\t /\\ (sh[nurse, i] = EVEN -> sh[nurse, i+1] != MORN)\n% \t\t\t\t\t\t\t\t)\t\n% );\n\t\t\t\t\t\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-2) (\n% \t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = OFF /\\ sh[nurse, i+1] = OFF) ->  sh[nurse, i+2] != OFF\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 2..nday-1) \n% \t\t\t\t\t\t\t\t((sh[nurse, i] = DAY /\\ sh[nurse, i-1] != DAY) -> sh[nurse, i + 1] = DAY) /\\\n% \t\t\t\t\t\t\t\t(sh[nurse, 1] = DAY -> sh[nurse, 2] = DAY)\n% );\n\n% Using regular constraint:\narray[NURSE, DAYS] of var SHIFT: tshift; % transition shift\nconstraint forall(nurse in NURSE) (\n\t\t\t\t\t\t\t\tregular([sh[nurse, i] | i in DAYS], 10, 5, transition, 1, 2..10)\n\n);\narray[1..10, SHIFT] of 0..10: transition = \n% Action (headings) = MORN, DAY, EVEN, NIGH, OFF\n% State (columns) = START, MORN, DAY1, DAY2, EVEN, NIGH1, NIGH2, NIGH3, OFF1, OFF2\n[|2,3,5,6,9\n|2,3,5,6,9\n|0,4,0,0,0\n|2,4,5,6,9\n|0,3,5,6,9\n|0,0,5,7,9\n|0,0,5,8,9\n|0,0,5,0,9\n|2,3,5,6,10\n|2,3,5,6,0\n|];\n\n% -- Stage B\n% Max and Min work shifts constraint\nconstraint forall(nurse in NURSE) (\n\t\t\t\t\t\t\t\tforall(i in 1..nday-6) (sum(j in i..i+6)(sh[nurse, j] != OFF) <= maxweek ) /\\\n\t\t\t\t\t\t\t\tforall(i in 1..nday-13) (sum(j in i..i+13)(sh[nurse, j] = NIGH) <= maxnightfort ) /\\\n\t\t\t\t\t\t\t\tforall(i in 1..nday-13) (sum(j in i..i+13)(sh[nurse, j] != OFF) >= minfort )  \n);\n\narray[DAYS, SHIFT] of var 0..infinity: cnt; % Counting number of nurse per explicit shift and day\nconstraint forall(d in DAYS) (global_cardinality(sh[..,d], SHIFT, cnt[d,..]));\nconstraint forall(d in DAYS) (\n\t\t\t\t\t\t\t\tforall(shift in SHIFT) (\n\t\t\t\t\t\t\t\t\t\t\tcnt[d, shift] >= minshift[shift, d]\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\n);\n\nconstraint forall(nurse in NURSE, d in DAYS) (wd[nurse, d] = dummy);\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
             }
         },
         "parent": "117edde7-b9c5-4966-b076-ca7bbcb9f0b5",

@@ -89,6 +89,26 @@ array[1..10, SHIFT] of 0..10: transition =
 |2,3,5,6,0
 |];
 
+% -- Stage B
+% Max and Min work shifts constraint
+constraint forall(nurse in NURSE) (
+								forall(i in 1..nday-6) (sum(j in i..i+6)(sh[nurse, j] != OFF) <= maxweek ) /\
+								forall(i in 1..nday-13) (sum(j in i..i+13)(sh[nurse, j] = NIGH) <= maxnightfort ) /\
+								forall(i in 1..nday-13) (sum(j in i..i+13)(sh[nurse, j] != OFF) >= minfort )  
+);
+
+array[DAYS, SHIFT] of var 0..infinity: cnt; % Counting number of nurse per explicit shift and day
+constraint forall(d in DAYS) (global_cardinality(sh[..,d], SHIFT, cnt[d,..]));
+constraint forall(d in DAYS) (
+								forall(shift in SHIFT) (
+											cnt[d, shift] >= minshift[shift, d]
+								)
+							
+);
+
+constraint forall(nurse in NURSE, d in DAYS) (wd[nurse, d] = dummy);
+
+
 
 
 
