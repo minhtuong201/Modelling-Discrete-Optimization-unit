@@ -89,6 +89,10 @@ array[1..10, SHIFT] of 0..10: transition =
 |2,3,5,6,0
 |];
 
+
+
+
+
 % -- Stage B
 % Max and Min work shifts constraint
 constraint forall(nurse in NURSE) (
@@ -108,6 +112,13 @@ constraint forall(d in DAYS) (
 
 constraint forall(nurse in NURSE, d in DAYS) (wd[nurse, d] = dummy);
 
+% -- Stage C
+
+constraint total_cost = sum(nurse in NURSE) (
+						(sum(day in DAYS) (sh[nurse, day] != OFF)) * shift_cost[nurse]
+);
+
+solve minimize total_cost;
 
 
 
