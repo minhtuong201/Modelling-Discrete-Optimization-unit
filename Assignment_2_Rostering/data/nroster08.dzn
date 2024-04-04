@@ -1,0 +1,44 @@
+NURSE = { A, B, C, D, E, F, G, H };
+
+nday = 14;
+%                     1      2      3      4      5      6      7      8      9     10     11     12     13     14
+rostered_off = [|  true, false,  true, false,  true, false, false,  true, false, false, false, false, false, false
+                | false,  true, false,  true, false, false, false, false,  true, false, false, false, false, false
+                | false, false,  true, false,  true, false, false, false, false,  true, false, false, false, false
+                | false, false, false,  true, false, false, false, false, false, false,  true, false, false, false
+                | false, false, false, false,  true, false, false, false, false, false, false,  true, false, false
+                | false, false, false, false, false,  true, false, false, false, false, false, false,  true, false
+                | false, false, false, false, false, false,  true,  true, false, false, false, false, false,  true
+                |  true, false, false, false, false, false,  true,  true, false, false, false, false, false,  true
+                |];
+                
+maxweek = 6;
+maxnightfort = 4;
+minfort = 6; 
+minshift =  [| 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1 
+             | 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2
+             | 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+             | 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2
+             | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+             |];               
+
+shift_cost = [ 1, 2, 3, 4, 6, 8, 10, 15];
+
+WARD = { GEN, MW1, MW2, MW3, HRT, CAN, '  .' };
+dummy = '  .';
+minward =   [| 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+             | 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0
+             | 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1
+             | 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0
+             | 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0
+             | 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1
+             | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+             |];
+maxward = 5;    
+
+SKILL = { SENIOR, HEART, CANCER};  
+senior = SENIOR;
+skill = [ {}, {}, {HEART}, {CANCER}, {SENIOR}, {HEART, SENIOR}, {CANCER, SENIOR}, {HEART, SENIOR, CANCER} ]; 
+required = [ {}, {}, {}, {}, {HEART}, {CANCER}, {} ];    
+
+                   

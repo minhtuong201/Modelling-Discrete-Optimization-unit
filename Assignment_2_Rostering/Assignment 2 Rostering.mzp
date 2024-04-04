@@ -1,0 +1,24 @@
+{
+  "version": 105,
+  "projectFiles": [
+    "models/nroster.mzn",
+    "models/nroster.mzc",
+    "data/nroster00.dzn",
+    "data/nroster01.dzn",
+    "data/nroster02.dzn",
+    "data/nroster03.dzn",
+    "data/nroster04.dzn",
+    "data/nroster05.dzn",
+    "data/nroster06.dzn",
+    "data/nroster07.dzn",
+    "data/nroster08.dzn",
+    "data/nroster09.dzn",
+    "data/nroster10.dzn",
+    "_mooc",
+    "highs.mpc"
+  ],
+  "openFiles": [
+    "models/nroster.mzn"
+  ],
+  "selectedSolverConfigFile": "highs.mpc"
+}

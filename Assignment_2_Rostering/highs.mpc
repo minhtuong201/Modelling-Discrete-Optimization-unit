@@ -1,0 +1,6 @@
+{
+    "intermediate-solutions": true,
+    "output-objective": true,
+    "solver": "org.minizinc.mip.highs@1.6.0",
+    "random-seed": "1234"
+}

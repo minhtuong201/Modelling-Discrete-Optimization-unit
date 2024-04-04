@@ -1,0 +1,39 @@
+NURSE = { A, B, C, D, E, F, G, H };
+
+nday = 14;
+%                     1      2      3      4      5      6      7      8      9     10     11     12     13     14
+rostered_off = [|  true, false, false, false, false, false, false,  true, false, false, false, false, false, false
+                | false,  true, false, false, false, false, false, false,  true, false, false, false, false, false
+                | false, false,  true, false, false, false, false, false, false,  true, false, false, false, false
+                | false, false, false,  true, false, false, false, false, false, false,  true, false, false, false
+                | false, false, false, false,  true, false, false, false, false, false, false,  true, false, false
+                | false, false, false, false, false,  true, false, false, false, false, false, false,  true, false
+                | false, false, false, false, false, false,  true, false, false, false, false, false, false,  true
+                |  true, false, false, false, false, false, false,  true, false, false, false, false, false,  true
+                |];
+                
+maxweek = 7;
+maxnightfort = 6;
+minfort = 0; 
+minshift =  [| 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 
+             | 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2
+             | 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+             | 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2
+             | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+             |];               
+
+shift_cost = [ 1, 1, 1, 1, 2, 2, 2, 3];
+
+WARD = { GEN,  '  .' };
+dummy = '  .';
+minward =   [| 2, 3, 4, 3, 5, 2, 1, 2, 2, 4, 3, 2, 4, 2
+             | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+             |];
+maxward = 2;    
+
+SKILL = { SENIOR};  
+senior = SENIOR;
+skill = [ {SENIOR} | n in NURSE ]; 
+required = [ {}, {} ];    
+
+                   
