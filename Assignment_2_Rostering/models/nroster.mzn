@@ -145,19 +145,13 @@ constraint forall(d in DAYS, w in WARD) (
 								cnt_ward[w, d] >= minward[w, d]
 								
 );
+% constraint forall(n in NURSE) (
+% 								card({wd[n,d] | d in DAYS}) <= maxward
+% );
+
 constraint forall(n in NURSE) (
-								card({wd[n,d] | d in DAYS}) <= maxward
+								nvalue(wd[n,..]) <= maxward
 );
-								
-
-
-
-output("\([sh[NURSE[1],i] = OFF | i in DAYS])")
-
-
-
-
-
 
 
 
