@@ -103,14 +103,20 @@ array[1..10, SHIFT] of 0..10: transition =
 % 						 )
 % );
 
+% constraint forall(n in NURSE) (
+% 								forall(i in 1..nday-6) (
+% 											global_cardinality_low_up([sh[n, j] | j in i..i+6], 
+% 											[OFF], [7 - maxweek], [min(7, 14-minfort)])) 
+% 						 /\ forall(i in 1..nday-13) (
+% 						 					global_cardinality_low_up([sh[n, j] | j in i..i+13], 
+% 						 					[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])
+% 						 )
+% );
+
 constraint forall(n in NURSE) (
-								forall(i in 1..nday-6) (
-											global_cardinality_low_up([sh[n, j] | j in i..i+6], 
-											[OFF], [7 - maxweek], [min(7, 14-minfort)])) 
-						 /\ forall(i in 1..nday-13) (
-						 					global_cardinality_low_up([sh[n, j] | j in i..i+13], 
-						 					[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])
-						 )
+								sliding_sum(0, maxweek, 7, [sh[n,i] != OFF | i in DAYS]) /\ 
+								sliding_sum(minfort, 14, 14, [sh[n,i] != OFF | i in DAYS]) /\
+								sliding_sum(0, maxnightfort, 14, [sh[n,i] = NIGH | i in DAYS])  
 );
 
 array[SHIFT, DAYS] of var 0..card(NURSE): cnt_shift; % Counting number of nurse per shift and day
@@ -146,7 +152,7 @@ constraint forall(n in NURSE) (
 
 
 
-
+output("\([sh[NURSE[1],i] = OFF | i in DAYS])")
 
 
 
