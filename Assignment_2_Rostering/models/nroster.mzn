@@ -90,19 +90,33 @@ array[1..10, SHIFT] of 0..10: transition =
 
 % -- Stage B
 % Max and Min work shifts constraint
+% constraint forall(n in NURSE) (
+% 								forall(i in 1..nday-6) (sum(j in i..i+6)(sh[n, j] != OFF) <= maxweek ) /\
+% 								forall(i in 1..nday-13) ((sum(j in i..i+13)(sh[n, j] = NIGH) <= maxnightfort ) /\ (sum(j in i..i+13)(sh[n, j] != OFF) >= minfort )) 
+% );
+
+% constraint forall(n in NURSE) (
+% 								forall(i in 1..nday-6) (global_cardinality_low_up([sh[n, j] | j in i..i+6], [OFF], [7 - maxweek], [7])) 
+% 						 /\ forall(i in 1..nday-13) (
+% 						 					global_cardinality_low_up([sh[n, j] | j in i..i+13], 
+% 						 					[NIGH, OFF], [0, 0], [maxnightfort, 14-minfort])
+% 						 )
+% );
+
 constraint forall(n in NURSE) (
-								forall(i in 1..nday-6) (sum(j in i..i+6)(sh[n, j] != OFF) <= maxweek ) /\
-								forall(i in 1..nday-13) (sum(j in i..i+13)(sh[n, j] = NIGH) <= maxnightfort ) /\
-								forall(i in 1..nday-13) (sum(j in i..i+13)(sh[n, j] != OFF) >= minfort )  
+								forall(i in 1..nday-6) (
+											global_cardinality_low_up([sh[n, j] | j in i..i+6], 
+											[OFF], [7 - maxweek], [min(7, 14-minfort)])) 
+						 /\ forall(i in 1..nday-13) (
+						 					global_cardinality_low_up([sh[n, j] | j in i..i+13], 
+						 					[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])
+						 )
 );
 
-array[DAYS, SHIFT] of var 0..infinity: cnt_shift; % Counting number of nurse per shift and day
-constraint forall(d in DAYS) (global_cardinality(sh[..,d], SHIFT, cnt_shift[d,..]));
-constraint forall(d in DAYS) (
-								forall(shift in SHIFT) (
-											cnt_shift[d, shift] >= minshift[shift, d]
-								)
-							
+array[SHIFT, DAYS] of var 0..card(NURSE): cnt_shift; % Counting number of nurse per shift and day
+constraint forall(d in DAYS) (global_cardinality(sh[..,d], SHIFT, cnt_shift[..,d]));
+constraint forall(d in DAYS, shift in SHIFT) (
+								cnt_shift[shift, d] >= minshift[shift, d]
 );
 
 % -- Stage C
@@ -110,7 +124,6 @@ constraint forall(d in DAYS) (
 constraint total_cost = sum(n in NURSE) (
 						(sum(day in DAYS) (sh[n, day] != OFF)) * shift_cost[n]
 );
-
 solve minimize total_cost;
 
 %-- Stage D
@@ -118,14 +131,13 @@ constraint forall(n in NURSE, d in DAYS) (
 								sh[n, d] = OFF <-> wd[n, d] = dummy
 );
 
-array [WARD, DAYS] of var 0..infinity: cnt_ward; % counting number of nurse for each ward and day
+array [WARD, DAYS] of var 0..card(NURSE): cnt_ward; % counting number of nurse for each ward and day
 constraint forall(d in DAYS) (
 								global_cardinality(wd[..,d], WARD, cnt_ward[..,d])
 );
-constraint forall(d in DAYS) (
-								forall(w in WARD) (
-											cnt_ward[w, d] >= minward[w, d]
-								)
+constraint forall(d in DAYS, w in WARD) (
+								cnt_ward[w, d] >= minward[w, d]
+								
 );
 constraint forall(n in NURSE) (
 								card({wd[n,d] | d in DAYS}) <= maxward
