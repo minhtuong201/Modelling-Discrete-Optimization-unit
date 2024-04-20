@@ -153,9 +153,18 @@ constraint forall(n in NURSE) (
 								nvalue(wd[n,..]) <= maxward
 );
 
-
-
-
+%-- Stage E
+						
+constraint forall(d in DAYS, w in WARD) (
+								let {
+										var set of SKILL: exist_skill = array_union ([
+												if wd[n, d] = w then skill[n]
+												else {}
+												endif | n in NURSE
+										])
+								} in
+								required[w] diff exist_skill = {}
+);
 
 
 

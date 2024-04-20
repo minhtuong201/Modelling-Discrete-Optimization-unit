@@ -4,8 +4,573 @@
         "files": {
             "models/nroster.mzn": {
                 "changes": [
+                    {
+                        "edits": [
+                            {
+                                "line": 106,
+                                "text": "% constraint forall(n in NURSE) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 107,
+                                "text": "% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 108,
+                                "text": "% \t\t\t\t\t\t\t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+6], ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 109,
+                                "text": "% \t\t\t\t\t\t\t\t\t\t\t[OFF], [7 - maxweek], [min(7, 14-minfort)])) ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 110,
+                                "text": "% \t\t\t\t\t\t /\\ forall(i in 1..nday-13) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 111,
+                                "text": "% \t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 112,
+                                "text": "% \t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 113,
+                                "text": "% \t\t\t\t\t\t )",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 114,
+                                "text": "% );",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 115,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 117,
+                                "text": "\t\t\t\t\t\t\t\tsliding_sum(0, maxweek, 7, [sh[n,i] != OFF | i in DAYS]) /\\ ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 118,
+                                "text": "\t\t\t\t\t\t\t\tsliding_sum(minfort, 14, 14, [sh[n,i] != OFF | i in DAYS]) /\\",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 119,
+                                "text": "\t\t\t\t\t\t\t\tsliding_sum(0, maxnightfort, 14, [sh[n,i] = NIGH | i in DAYS])  ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t\t\tforall(i in 1..nday-6) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+6], ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\t[OFF], [7 - maxweek], [min(7, 14-minfort)])) ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t /\\ forall(i in 1..nday-13) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t )",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": ");",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% constraint forall(n in NURSE) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t\t\tsliding_sum(0, maxweek, 7, [sh[n,i] != OFF | i in DAYS]) /\\ ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t\t\tsliding_sum(minfort, 14, 14, [sh[n,i] != OFF | i in DAYS]) /\\",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t\t\tsliding_sum(0, maxnightfort, 14, [sh[n,i] = NIGH | i in DAYS])  ",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1712642432.338
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 106,
+                                "text": "constraint forall(n in NURSE) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 107,
+                                "text": "\t\t\t\t\t\t\t\tforall(i in 1..nday-6) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 108,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+6], ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 109,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\t[OFF], [7 - maxweek], [min(7, 14-minfort)])) ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 110,
+                                "text": "\t\t\t\t\t\t /\\ forall(i in 1..nday-13) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 111,
+                                "text": "\t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 112,
+                                "text": "\t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 113,
+                                "text": "\t\t\t\t\t\t )",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 114,
+                                "text": ");",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 115,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 117,
+                                "text": "% \t\t\t\t\t\t\t\tsliding_sum(0, maxweek, 7, [sh[n,i] != OFF | i in DAYS]) /\\ ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 118,
+                                "text": "% \t\t\t\t\t\t\t\tsliding_sum(minfort, 14, 14, [sh[n,i] != OFF | i in DAYS]) /\\",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 119,
+                                "text": "% \t\t\t\t\t\t\t\tsliding_sum(0, maxnightfort, 14, [sh[n,i] = NIGH | i in DAYS])  ",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t\t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+6], ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t\t\t\t\t\t[OFF], [7 - maxweek], [min(7, 14-minfort)])) ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t /\\ forall(i in 1..nday-13) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% \t\t\t\t\t\t )",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "% );",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "constraint forall(n in NURSE) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t\t\tsliding_sum(0, maxweek, 7, [sh[n,i] != OFF | i in DAYS]) /\\ ",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t\t\tsliding_sum(minfort, 14, 14, [sh[n,i] != OFF | i in DAYS]) /\\",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 120,
+                                "text": "\t\t\t\t\t\t\t\tsliding_sum(0, maxnightfort, 14, [sh[n,i] = NIGH | i in DAYS])  ",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1712642494.243
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 156,
+                                "text": "%-- Stage E",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 156,
+                                "text": "constraint forall(w in WARD) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 156,
+                                "text": "\t\t\t\t\t\t\t\tforall(s in required[w]) (s in [SKILL[wd[n,w]] | n in NURSE])",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 156,
+                                "text": "\t\t\t\t\t\t\t\t",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 157,
+                                "text": ")",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713618502.188
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 157,
+                                "text": "constraint forall(w in WARD) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 158,
+                                "text": "\t\t\t\t\t\t\t\tforall(s in required[w]) (s in [SKILL[wd[n,w]] | n in NURSE])",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 159,
+                                "text": "\t\t\t\t\t\t\t\t",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 160,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 161,
+                                "text": ")",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 162,
+                                "text": "\t\t\t\t\t\t\t",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 162,
+                                "text": "constraint forall(d in DAYS, n in NURSE) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 162,
+                                "text": "\t\t\t\t\t\t\t\tforall(s in required[wd[n, d]]) (s in skill[n])",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 162,
+                                "text": ");",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713618782.78
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 158,
+                                "text": "constraint forall(d in DAYS, n in NURSE) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 159,
+                                "text": "\t\t\t\t\t\t\t\tforall(s in required[wd[n, d]]) (s in skill[n])",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 160,
+                                "text": "constraint forall(d in DAYS) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 160,
+                                "text": "\t\t\t\t\t\t\t\tforall (n in NURSE) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 160,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\tforall(s in required[wd[n, d]]) (s in skill[n])",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 160,
+                                "text": "\t\t\t\t\t\t\t\t)",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 162,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 163,
+                                "text": "constraint forall(d in DAYS, w in WARD) (",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 163,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] in [skill[n] | n in NURSE where wd[n, d] = w]",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 163,
+                                "text": ");",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713619924.963
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 165,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] in [skill[n] | n in NURSE where wd[n, d] = w]",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] in [if wd[n, d] = w then skill[n] else {} endif | n in NURSE]",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713620403.558
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 165,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] in [if wd[n, d] = w then skill[n] else {} endif | n in NURSE]",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\tlet {",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\t\t\tarray[NURSE] of var set of SKILL: exist_skill = [",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\t\tif wd[n, d] = w then skill[n]",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\t\telse {}",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\t\tendif | n in NURSE",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\t\t\t]",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\t} in",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] in [exist_skill[n] | n in NURSE]",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713621254.814
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 157,
+                                "text": "\t\t\t\t\t\t\t",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 158,
+                                "text": "constraint forall(d in DAYS) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 159,
+                                "text": "\t\t\t\t\t\t\t\tforall (n in NURSE) (",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 160,
+                                "text": "\t\t\t\t\t\t\t\t\t\t\tforall(s in required[wd[n, d]]) (s in skill[n])",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 161,
+                                "text": "\t\t\t\t\t\t\t\t)",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 162,
+                                "text": ");",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 163,
+                                "text": "",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 164,
+                                "text": "\t\t\t\t\t\t",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713621280.893
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 160,
+                                "text": "\t\t\t\t\t\t\t\t\t\tarray[NURSE] of var set of SKILL: exist_skill = [",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 161,
+                                "text": "\t\t\t\t\t\t\t\t\t\tvar set of SKILL: exist_skill = array_union ([",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 164,
+                                "text": "\t\t\t\t\t\t\t\t\t\t]",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 165,
+                                "text": "\t\t\t\t\t\t\t\t\t\t])",
+                                "type": "insertion"
+                            },
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] in [exist_skill[n] | n in NURSE]",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 167,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] diff exist_skill != {}",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713621796.497
+                    },
+                    {
+                        "edits": [
+                            {
+                                "line": 166,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] diff exist_skill != {}",
+                                "type": "deletion"
+                            },
+                            {
+                                "line": 167,
+                                "text": "\t\t\t\t\t\t\t\trequired[w] diff exist_skill = {}",
+                                "type": "insertion"
+                            }
+                        ],
+                        "timestamp": 1713621809.606
+                    }
                 ],
-                "snapshot": "% nurse rostering project\n% STAGE A data\nenum NURSE; % set of nurses to roster\nenum SHIFT = { MORN, DAY, EVEN, NIGH, OFF };\nint: nday;     % number of days for roster\nset of int: DAYS = 1..nday; \narray[NURSE,DAYS] of bool: rostered_off; % nurse is guaranteed an off shift\n% STAGE B data\nint: maxweek; % maximum working shifts in any 7 day period\nint: maxnightfort; % maximum night shifts in any 14 day period\nint: minfort; % minimum number of working shifts in any 14 day period\narray[SHIFT,DAYS] of int: minshift; % minimum number of nurses rostered on each shift\n% STAGE C data\narray[NURSE] of int: shift_cost;  \n% STAGE D data\nenum WARD;  % set of wards to roster\nWARD: dummy; % dummy ward\narray[WARD,DAYS] of int: minward; % minimum number of nurses rostered to each ward\nconstraint forall(d in DAYS)(assert(minward[dummy,d] = 0, \"Dummy ward has non zero minimum on day \\(d)\\n\"));\nint: maxward; % maximum number of wards any nurse can work in the roster period\n% STAGE E data\nenum SKILL;\nSKILL: senior;                         % which skill is senior\narray[NURSE] of set of SKILL: skill;   % skills that each nurse has\narray[WARD] of set of SKILL: required; % particular skills for each ward\nopt WARD: emergency; % emergency ward if its being rostered\nenum SLICE = { PREDAWN, AM, PM, LATE };\n% coverage MORNING = {PREDAWN, AM}, \n%          DAY = {AM,PM} \n%          EVENING = {PM, LATE}, \n%          NIGHT {LATE, PREDAWN of the next day} \n\n%%%% DECISIONS\narray[NURSE,DAYS] of var SHIFT: sh; % shift for each nurse on each day\nvar 0..nday*sum(shift_cost): total_cost;\narray[NURSE,DAYS] of var WARD: wd; % ward rostered for each nurse\n\n% --- Stage A\n% A1\ninclude \"globals.mzn\";\nconstraint forall(n in NURSE, i in DAYS) (\n\t\t\t\t\t\t\t\t rostered_off[n, i] = true -> sh[n, i] = OFF\n);\n\t\t\t\t\t\t\t\t\n% A2\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-3) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse,i] = sh[nurse, i+1] \t/\\ sh[nurse, i] = NIGH /\\ sh[nurse,i] = sh[nurse, i+2]) -> \tsh[nurse, i+3] != NIGH\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-1) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = NIGH -> sh[nurse, i+1] in {EVEN, NIGH, OFF})\n% \t\t\t\t\t\t\t\t\t /\\ (sh[nurse, i] = EVEN -> sh[nurse, i+1] != MORN)\n% \t\t\t\t\t\t\t\t)\t\n% );\n\t\t\t\t\t\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-2) (\n% \t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = OFF /\\ sh[nurse, i+1] = OFF) ->  sh[nurse, i+2] != OFF\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 2..nday-1) \n% \t\t\t\t\t\t\t\t((sh[nurse, i] = DAY /\\ sh[nurse, i-1] != DAY) -> sh[nurse, i + 1] = DAY) /\\\n% \t\t\t\t\t\t\t\t(sh[nurse, 1] = DAY -> sh[nurse, 2] = DAY)\n% );\n\n% Using regular constraint:\nconstraint forall(n in NURSE) (\n\t\t\t\t\t\t\t\tregular([sh[n, i] | i in DAYS], 10, 5, transition, 1, 2..10)\n\n);\narray[1..10, SHIFT] of 0..10: transition = \n% Action (headings) = MORN, DAY, EVEN, NIGH, OFF\n% State (columns) = START, MORN, DAY1, DAY2, EVEN, NIGH1, NIGH2, NIGH3, OFF1, OFF2\n[|2,3,5,6,9\n|2,3,5,6,9\n|0,4,0,0,0\n|2,4,5,6,9\n|0,3,5,6,9\n|0,0,5,7,9\n|0,0,5,8,9\n|0,0,5,0,9\n|2,3,5,6,10\n|2,3,5,6,0\n|];\n\n% -- Stage B\n% Max and Min work shifts constraint\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (sum(j in i..i+6)(sh[n, j] != OFF) <= maxweek ) /\\\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-13) ((sum(j in i..i+13)(sh[n, j] = NIGH) <= maxnightfort ) /\\ (sum(j in i..i+13)(sh[n, j] != OFF) >= minfort )) \n% );\n\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (global_cardinality_low_up([sh[n, j] | j in i..i+6], [OFF], [7 - maxweek], [7])) \n% \t\t\t\t\t\t /\\ forall(i in 1..nday-13) (\n% \t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], \n% \t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 0], [maxnightfort, 14-minfort])\n% \t\t\t\t\t\t )\n% );\n\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (\n% \t\t\t\t\t\t\t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+6], \n% \t\t\t\t\t\t\t\t\t\t\t[OFF], [7 - maxweek], [min(7, 14-minfort)])) \n% \t\t\t\t\t\t /\\ forall(i in 1..nday-13) (\n% \t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], \n% \t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])\n% \t\t\t\t\t\t )\n% );\n\nconstraint forall(n in NURSE) (\n\t\t\t\t\t\t\t\tsliding_sum(0, maxweek, 7, [sh[n,i] != OFF | i in DAYS]) /\\ \n\t\t\t\t\t\t\t\tsliding_sum(minfort, 14, 14, [sh[n,i] != OFF | i in DAYS]) /\\\n\t\t\t\t\t\t\t\tsliding_sum(0, maxnightfort, 14, [sh[n,i] = NIGH | i in DAYS])  \n);\n\narray[SHIFT, DAYS] of var 0..card(NURSE): cnt_shift; % Counting number of nurse per shift and day\nconstraint forall(d in DAYS) (global_cardinality(sh[..,d], SHIFT, cnt_shift[..,d]));\nconstraint forall(d in DAYS, shift in SHIFT) (\n\t\t\t\t\t\t\t\tcnt_shift[shift, d] >= minshift[shift, d]\n);\n\n% -- Stage C\n\nconstraint total_cost = sum(n in NURSE) (\n\t\t\t\t\t\t(sum(day in DAYS) (sh[n, day] != OFF)) * shift_cost[n]\n);\nsolve minimize total_cost;\n\n%-- Stage D\nconstraint forall(n in NURSE, d in DAYS) (\n\t\t\t\t\t\t\t\tsh[n, d] = OFF <-> wd[n, d] = dummy\n);\n\narray [WARD, DAYS] of var 0..card(NURSE): cnt_ward; % counting number of nurse for each ward and day\nconstraint forall(d in DAYS) (\n\t\t\t\t\t\t\t\tglobal_cardinality(wd[..,d], WARD, cnt_ward[..,d])\n);\nconstraint forall(d in DAYS, w in WARD) (\n\t\t\t\t\t\t\t\tcnt_ward[w, d] >= minward[w, d]\n\t\t\t\t\t\t\t\t\n);\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tcard({wd[n,d] | d in DAYS}) <= maxward\n% );\n\nconstraint forall(n in NURSE) (\n\t\t\t\t\t\t\t\tnvalue(wd[n,..]) <= maxward\n);\n\n\n\n\n\n\n\n\n\n\n\n"
+                "snapshot": "% nurse rostering project\n% STAGE A data\nenum NURSE; % set of nurses to roster\nenum SHIFT = { MORN, DAY, EVEN, NIGH, OFF };\nint: nday;     % number of days for roster\nset of int: DAYS = 1..nday; \narray[NURSE,DAYS] of bool: rostered_off; % nurse is guaranteed an off shift\n% STAGE B data\nint: maxweek; % maximum working shifts in any 7 day period\nint: maxnightfort; % maximum night shifts in any 14 day period\nint: minfort; % minimum number of working shifts in any 14 day period\narray[SHIFT,DAYS] of int: minshift; % minimum number of nurses rostered on each shift\n% STAGE C data\narray[NURSE] of int: shift_cost;  \n% STAGE D data\nenum WARD;  % set of wards to roster\nWARD: dummy; % dummy ward\narray[WARD,DAYS] of int: minward; % minimum number of nurses rostered to each ward\nconstraint forall(d in DAYS)(assert(minward[dummy,d] = 0, \"Dummy ward has non zero minimum on day \\(d)\\n\"));\nint: maxward; % maximum number of wards any nurse can work in the roster period\n% STAGE E data\nenum SKILL;\nSKILL: senior;                         % which skill is senior\narray[NURSE] of set of SKILL: skill;   % skills that each nurse has\narray[WARD] of set of SKILL: required; % particular skills for each ward\nopt WARD: emergency; % emergency ward if its being rostered\nenum SLICE = { PREDAWN, AM, PM, LATE };\n% coverage MORNING = {PREDAWN, AM}, \n%          DAY = {AM,PM} \n%          EVENING = {PM, LATE}, \n%          NIGHT {LATE, PREDAWN of the next day} \n\n%%%% DECISIONS\narray[NURSE,DAYS] of var SHIFT: sh; % shift for each nurse on each day\nvar 0..nday*sum(shift_cost): total_cost;\narray[NURSE,DAYS] of var WARD: wd; % ward rostered for each nurse\n\n% --- Stage A\n% A1\ninclude \"globals.mzn\";\nconstraint forall(n in NURSE, i in DAYS) (\n\t\t\t\t\t\t\t\t rostered_off[n, i] = true -> sh[n, i] = OFF\n);\n\t\t\t\t\t\t\t\t\n% A2\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-3) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse,i] = sh[nurse, i+1] \t/\\ sh[nurse, i] = NIGH /\\ sh[nurse,i] = sh[nurse, i+2]) -> \tsh[nurse, i+3] != NIGH\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-1) (\n% \t\t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = NIGH -> sh[nurse, i+1] in {EVEN, NIGH, OFF})\n% \t\t\t\t\t\t\t\t\t /\\ (sh[nurse, i] = EVEN -> sh[nurse, i+1] != MORN)\n% \t\t\t\t\t\t\t\t)\t\n% );\n\t\t\t\t\t\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-2) (\n% \t\t\t\t\t\t\t\t\t\t(sh[nurse, i] = OFF /\\ sh[nurse, i+1] = OFF) ->  sh[nurse, i+2] != OFF\n% \t\t\t\t\t\t\t\t)\t\n% );\n\n% constraint forall(nurse in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 2..nday-1) \n% \t\t\t\t\t\t\t\t((sh[nurse, i] = DAY /\\ sh[nurse, i-1] != DAY) -> sh[nurse, i + 1] = DAY) /\\\n% \t\t\t\t\t\t\t\t(sh[nurse, 1] = DAY -> sh[nurse, 2] = DAY)\n% );\n\n% Using regular constraint:\nconstraint forall(n in NURSE) (\n\t\t\t\t\t\t\t\tregular([sh[n, i] | i in DAYS], 10, 5, transition, 1, 2..10)\n\n);\narray[1..10, SHIFT] of 0..10: transition = \n% Action (headings) = MORN, DAY, EVEN, NIGH, OFF\n% State (columns) = START, MORN, DAY1, DAY2, EVEN, NIGH1, NIGH2, NIGH3, OFF1, OFF2\n[|2,3,5,6,9\n|2,3,5,6,9\n|0,4,0,0,0\n|2,4,5,6,9\n|0,3,5,6,9\n|0,0,5,7,9\n|0,0,5,8,9\n|0,0,5,0,9\n|2,3,5,6,10\n|2,3,5,6,0\n|];\n\n% -- Stage B\n% Max and Min work shifts constraint\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (sum(j in i..i+6)(sh[n, j] != OFF) <= maxweek ) /\\\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-13) ((sum(j in i..i+13)(sh[n, j] = NIGH) <= maxnightfort ) /\\ (sum(j in i..i+13)(sh[n, j] != OFF) >= minfort )) \n% );\n\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (global_cardinality_low_up([sh[n, j] | j in i..i+6], [OFF], [7 - maxweek], [7])) \n% \t\t\t\t\t\t /\\ forall(i in 1..nday-13) (\n% \t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], \n% \t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 0], [maxnightfort, 14-minfort])\n% \t\t\t\t\t\t )\n% );\n\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tforall(i in 1..nday-6) (\n% \t\t\t\t\t\t\t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+6], \n% \t\t\t\t\t\t\t\t\t\t\t[OFF], [7 - maxweek], [min(7, 14-minfort)])) \n% \t\t\t\t\t\t /\\ forall(i in 1..nday-13) (\n% \t\t\t\t\t\t \t\t\t\t\tglobal_cardinality_low_up([sh[n, j] | j in i..i+13], \n% \t\t\t\t\t\t \t\t\t\t\t[NIGH, OFF], [0, 14-2*maxweek], [maxnightfort, 14-minfort])\n% \t\t\t\t\t\t )\n% );\n\nconstraint forall(n in NURSE) (\n\t\t\t\t\t\t\t\tsliding_sum(0, maxweek, 7, [sh[n,i] != OFF | i in DAYS]) /\\ \n\t\t\t\t\t\t\t\tsliding_sum(minfort, 14, 14, [sh[n,i] != OFF | i in DAYS]) /\\\n\t\t\t\t\t\t\t\tsliding_sum(0, maxnightfort, 14, [sh[n,i] = NIGH | i in DAYS])  \n);\n\narray[SHIFT, DAYS] of var 0..card(NURSE): cnt_shift; % Counting number of nurse per shift and day\nconstraint forall(d in DAYS) (global_cardinality(sh[..,d], SHIFT, cnt_shift[..,d]));\nconstraint forall(d in DAYS, shift in SHIFT) (\n\t\t\t\t\t\t\t\tcnt_shift[shift, d] >= minshift[shift, d]\n);\n\n% -- Stage C\n\nconstraint total_cost = sum(n in NURSE) (\n\t\t\t\t\t\t(sum(day in DAYS) (sh[n, day] != OFF)) * shift_cost[n]\n);\nsolve minimize total_cost;\n\n%-- Stage D\nconstraint forall(n in NURSE, d in DAYS) (\n\t\t\t\t\t\t\t\tsh[n, d] = OFF <-> wd[n, d] = dummy\n);\n\narray [WARD, DAYS] of var 0..card(NURSE): cnt_ward; % counting number of nurse for each ward and day\nconstraint forall(d in DAYS) (\n\t\t\t\t\t\t\t\tglobal_cardinality(wd[..,d], WARD, cnt_ward[..,d])\n);\nconstraint forall(d in DAYS, w in WARD) (\n\t\t\t\t\t\t\t\tcnt_ward[w, d] >= minward[w, d]\n\t\t\t\t\t\t\t\t\n);\n% constraint forall(n in NURSE) (\n% \t\t\t\t\t\t\t\tcard({wd[n,d] | d in DAYS}) <= maxward\n% );\n\nconstraint forall(n in NURSE) (\n\t\t\t\t\t\t\t\tnvalue(wd[n,..]) <= maxward\n);\n\n%-- Stage E\n\t\t\t\t\t\t\nconstraint forall(d in DAYS, w in WARD) (\n\t\t\t\t\t\t\t\tlet {\n\t\t\t\t\t\t\t\t\t\tvar set of SKILL: exist_skill = array_union ([\n\t\t\t\t\t\t\t\t\t\t\t\tif wd[n, d] = w then skill[n]\n\t\t\t\t\t\t\t\t\t\t\t\telse {}\n\t\t\t\t\t\t\t\t\t\t\t\tendif | n in NURSE\n\t\t\t\t\t\t\t\t\t\t])\n\t\t\t\t\t\t\t\t} in\n\t\t\t\t\t\t\t\trequired[w] diff exist_skill = {}\n);\n\n\n\n\n\n\n\n"
             }
         },
         "parent": "20e43752-57c6-46ce-929d-2ef80dd43427",
