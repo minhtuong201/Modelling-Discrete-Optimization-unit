@@ -154,21 +154,78 @@ constraint forall(n in NURSE) (
 );
 
 %-- Stage E
-						
-constraint forall(d in DAYS, w in WARD) (
-								let {
-										var set of SKILL: exist_skill = array_union ([
-												if wd[n, d] = w then skill[n]
-												else {}
-												endif | n in NURSE
-										])
-								} in
-								required[w] diff exist_skill = {}
+
+% constraint forall(d in DAYS, w in WARD)(
+% 								(cnt_ward[w, d] != 0 /\ required[w] != {}) ->
+% 								forall(s in required[w])(  % if there are some NURSE on a ward
+% 											exists(n in NURSE)(((sh[n, d-1] = NIGH /\ wd[n, d-1] = w) \/ wd[n,d] = w) /\ s in skill[n])
+% 								)
+% );
+
+constraint forall(d in DAYS, w in WARD)(
+% 								forall(w in WARD)(
+										cnt_ward[w,d] > 0 ->
+												forall(s in required[w])(  
+															exists(n in NURSE)(wd[n,d] = w /\ s in skill[n])
+												)
+										
+% 								)
 );
 
+% constraint forall(d in DAYS)(
+% 								(exists(n in NURSE)(senior in skill[n] /\ sh[n,d] = MORN) /\
+% 								exists(n in NURSE)(senior in skill[n] /\ sh[n,d] = EVEN))
+% 								\/
+% 								(exists(n in NURSE)(senior in skill[n] /\ sh[n,d] = DAY) /\ 
+% 								exists(n in NURSE)(senior in skill[n] /\ ((sh[n,d] = NIGH) \/ (sh[n,d] = EVEN))) /\ 
+% 								exists(n in NURSE)(senior in skill[n] /\ ((sh[n,d-1] = NIGH) \/ (sh[n,d] = MORN))))							
+% );
+
+constraint forall(d in DAYS)(
+								exists(n in NURSE)(senior in skill[n] /\ ((sh[n,d-1] = NIGH) \/ (sh[n,d] = MORN))) /\ 
+								exists(n in NURSE)(senior in skill[n] /\ ((sh[n,d] = MORN) \/ (sh[n,d] = DAY))) /\ 
+								exists(n in NURSE)(senior in skill[n] /\ ((sh[n,d] = DAY) \/ (sh[n,d] = EVEN))) /\ 
+								exists(n in NURSE)(senior in skill[n] /\ ((sh[n,d] = EVEN) \/ (sh[n,d] = NIGH)))
+);
+
+constraint occurs(emergency) -> (
+								forall(d in DAYS) (
+% 											cnt_ward[emergency, d] > 0 -> (
+% 														(d > 1 -> exists(n in NURSE)(wd[n,d-1] = emergency /\ sh[n,d-1] = NIGH)) /\
+											cnt_ward[emergency, d] = 0 \/ (
+														cnt_ward[emergency, d] >= 4 /\ (
+														exists(n in NURSE)(wd[n,d] = emergency /\ sh[n,d] = MORN) /\
+														exists(n in NURSE)(wd[n,d] = emergency /\ sh[n,d] = DAY) /\
+														exists(n in NURSE)(wd[n,d] = emergency /\ sh[n,d] = EVEN) /\
+														exists(n in NURSE)(wd[n,d] = emergency /\ sh[n,d] = NIGH) 
+														)
+ 											)
+								)
+);
+
+% constraint occurs(emergency) -> forall(d in DAYS) (
+% 										let {
+% 												var set of SHIFT: exist_emer_shift = { % shift of all emergency nurses assign in a ward
+% 														if wd[n,d] = emergency then sh[n,d] else OFF endif | n in NURSE
+% 												}
+% 										} in
+% 										{MORN, DAY, EVEN, NIGH} subset exist_emer_shift 
+% 										{MORN, DAY, EVEN, NIGH} subset {if wd[n,d] = emergency then sh[n,d] else OFF endif | n in NURSE} 											
+% );
+
+% constraint occurs(emergency) -> (
+% 					let {
+% 									emergency_shift only
+% 									array[NURSE, DAYS] of var SHIFT: emer_shift = 
+% 									[(n,d): if wd[n,d] = emergency then sh[n,d] else OFF endif | n in NURSE, d in DAYS]
+% 					} in
+% 					forall(d in DAYS) (
+% 								cnt_ward[emergency, d] >= 4 /\ 
+% 								nvalue([if wd[n,d] = emergency then sh[n,d] else OFF endif | n in NURSE]) = 5
+% 					)
+% 					forall(d in DAYS) (cnt_ward[emergency, d] >= 4 /\ nvalue(emer_shift[..,d]) = 5)
 
 
-
-
-
+% 					forall(d in DAYS) (global_cardinality_low_up(emer_shift[..,d], [MORN, DAY, EVEN, NIGH], [1,1,1,1], [card(NURSE) | _ in 1..4]))
+% );
 
