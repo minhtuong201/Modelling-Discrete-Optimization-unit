@@ -1,0 +1,25 @@
+{
+    "openFiles": [
+        "models/trains.mzn"
+    ],
+    "openTab": 0,
+    "projectFiles": [
+        "_mooc",
+        "chuffed.mpc",
+        "data/trains00.dzn",
+        "data/trains01.dzn",
+        "data/trains02.dzn",
+        "data/trains03.dzn",
+        "data/trains04.dzn",
+        "data/trains05.dzn",
+        "data/trains06.dzn",
+        "data/trains07.dzn",
+        "data/trains08.dzn",
+        "data/trains09.dzn",
+        "data/trains10.dzn",
+        "models/trains.mzc",
+        "models/trains.mzn"
+    ],
+    "selectedSolverConfigFile": "chuffed.mpc",
+    "version": 106
+}

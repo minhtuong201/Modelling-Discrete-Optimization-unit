@@ -1,0 +1,6 @@
+{
+    "intermediate-solutions": false,
+    "output-objective": true,
+    "solver": "org.chuffed.chuffed@0.13.1",
+    "time-limit": 60000
+}
